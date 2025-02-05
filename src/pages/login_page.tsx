@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Form,
   FormControl,
@@ -17,6 +17,7 @@ import { useLoginMutation } from "@/redux/features/auth/auth_api";
 import { verifyToken } from "@/utils/verify_token";
 import { setuser } from "@/redux/features/auth/auth_slice";
 import { useDispatch } from "react-redux";
+import { toast } from "sonner";
 
 const formSchema = z.object({
   email: z.string().email({
@@ -37,16 +38,23 @@ export function LoginPage() {
   });
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [login] = useLoginMutation();
 
   // Handle form submission
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("Login values:", values);
-    const res = await login(values).unwrap();
-    console.log("res:", res);
-    const userdata = verifyToken(res.data.token);
+    const toastID = toast.loading("Logging in...");
 
-    dispatch(setuser({ user: userdata, token: res.data.token }));
+    try {
+      const response = await login(values).unwrap();
+      const user = verifyToken(response.data.token);
+      dispatch(setuser(user));
+      toast.success("Login successful.", { id: toastID });
+      navigate("/");
+    } catch (error) {
+      const errorData = error as { data: { message: string } };
+      toast.error(errorData.data.message, { id: toastID });
+    }
   }
 
   return (

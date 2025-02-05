@@ -12,7 +12,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { NavMenu } from "@/components/shared/nevbar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { useRegisterMutation } from "@/redux/features/auth/auth_api";
 
 // Define form schema
 const formSchema = z
@@ -25,7 +27,7 @@ const formSchema = z
     }),
     password: z
       .string()
-      .min(8, {
+      .min(6, {
         message: "Password must be at least 8 characters.",
       })
       .regex(/[A-Z]/, {
@@ -52,9 +54,33 @@ export function RegisterForm() {
     },
   });
 
+  const navigate = useNavigate();
+  const [register] = useRegisterMutation();
+
   // Handle form submission
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("Registration values:", values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const queryData = {
+      name: values.name,
+      email: values.email,
+      password: values.password,
+    };
+
+    const toastID = toast.loading("Logging in...");
+
+    try {
+      await register(queryData).unwrap();
+
+      toast.success("Register successful. Please login", {
+        id: toastID,
+      });
+      navigate("/login");
+    } catch (error) {
+      const errorData = error as { data: { message: string } };
+      toast.error(errorData.data.message, {
+        id: toastID,
+        description: error.data.errorSources[0].message,
+      });
+    }
   }
 
   return (
