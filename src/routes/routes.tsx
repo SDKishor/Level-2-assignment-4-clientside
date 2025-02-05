@@ -1,14 +1,25 @@
-import App from "@/App";
+import MainLayout from "@/layouts/main_layout";
+import { LoginPage } from "@/pages/login_page";
+import { RegisterForm } from "@/pages/register_page";
 import { createBrowserRouter } from "react-router-dom";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <MainLayout />,
     children: [
       {
+        index: true,
         path: "/",
         element: <div>Home</div>,
+      },
+      {
+        path: "products",
+        element: <div>Products</div>,
+      },
+      {
+        path: "about",
+        element: <div>About</div>,
       },
     ],
   },
@@ -18,17 +29,17 @@ const router = createBrowserRouter([
     children: [
       {
         path: "admin",
-        element: <div>Admin</div>,
+        element: <div>block user</div>,
       },
     ],
   },
   {
     path: "/login",
-    element: <div>Login</div>,
+    element: <LoginPage />,
   },
   {
     path: "/register",
-    element: <div>Register</div>,
+    element: <RegisterForm />,
   },
 ]);
 
