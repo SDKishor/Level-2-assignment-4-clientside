@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import { NavMenu } from "@/components/shared/nevbar";
 import { useLoginMutation } from "@/redux/features/auth/auth_api";
 import { verifyToken } from "@/utils/verify_token";
-import { setuser } from "@/redux/features/auth/auth_slice";
+import { IUser, setuser } from "@/redux/features/auth/auth_slice";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 
@@ -47,10 +47,11 @@ export function LoginPage() {
 
     try {
       const response = await login(values).unwrap();
-      const user = verifyToken(response.data.token);
-      dispatch(setuser(user));
+      const user = verifyToken(response.data.token) as IUser;
+
+      dispatch(setuser({ user, token: response.data.token }));
       toast.success("Login successful.", { id: toastID });
-      navigate("/");
+      navigate("/", { replace: true });
     } catch (error) {
       const errorData = error as { data: { message: string } };
       toast.error(errorData.data.message, { id: toastID });

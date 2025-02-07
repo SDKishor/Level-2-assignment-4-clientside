@@ -1,15 +1,31 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { logout, useCurrentUser } from "@/redux/features/auth/auth_slice";
 
 export function NavMenu() {
-  const [isLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
+  const dispatch = useDispatch();
+  const user = useSelector(useCurrentUser);
+  useEffect(() => {
+    if (user) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, [user]);
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
-    <nav className="fixed w-full top-0 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 ">
+    <nav className="fixed w-full top-0 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-50">
       <div className="container flex h-16 items-center justify-between px-4 md:px-6 mx-auto">
         <Link
           to="/"
@@ -100,9 +116,12 @@ export function NavMenu() {
 
           <div className="ml-6 flex gap-2">
             {isLoggedIn ? (
-              <Button asChild>
-                <Link to="/dashboard">Dashboard</Link>
-              </Button>
+              <>
+                <Button asChild>
+                  <Link to={`/${user?.role}/dashboard`}>Dashboard</Link>
+                </Button>
+                <Button onClick={handleLogout}>Logout</Button>
+              </>
             ) : (
               <>
                 <Button asChild variant="outline">
