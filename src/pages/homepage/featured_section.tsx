@@ -127,12 +127,7 @@ export function FeaturedProducts() {
         {/* Products Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 place-items-center">
           {featuredProducts.slice(0, 6).map((product) => (
-            <ProductCard
-              key={product._id}
-              product={product}
-              className="w-full"
-              isFeatured
-            />
+            <ProductCard key={product._id} {...product} />
           ))}
         </div>
 

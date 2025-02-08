@@ -1,23 +1,21 @@
 import { Star } from "lucide-react";
+import { Link } from "react-router-dom";
 
-interface ProductCardProps {
-  product: {
-    _id: string;
-    brand: string;
-    model: string;
-    year: number;
-    price: number;
-    image_url: string;
-    category: string;
-    description: string;
-    quantity: number;
-    inStock: boolean;
-  };
+export interface ProductCardProps {
+  _id: string;
+  brand: string;
+  model: string;
+  year: number;
+  price: number;
+  image_url: string;
+  category: string;
+  description: string;
+  quantity: number;
+  inStock: boolean;
   isFeatured?: boolean;
-  className?: string;
 }
 
-export function ProductCard({ product, isFeatured = false }: ProductCardProps) {
+export function ProductCard(product: ProductCardProps) {
   return (
     <div className="group bg-white rounded-lg md:rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-100 w-full  max-w-[320px]">
       {/* Image Section */}
@@ -29,7 +27,7 @@ export function ProductCard({ product, isFeatured = false }: ProductCardProps) {
         />
 
         {/* Featured Badge */}
-        {isFeatured && (
+        {product.isFeatured && (
           <span className="absolute top-1 left-1 md:top-2 md:left-2 bg-blue-500 text-white px-2 py-[2px] md:px-3 md:py-1 text-[10px] md:text-xs rounded-full font-bold uppercase tracking-wide">
             Featured
           </span>
@@ -94,7 +92,11 @@ export function ProductCard({ product, isFeatured = false }: ProductCardProps) {
           className="w-full mt-2 md:mt-4 bg-emerald-600 hover:bg-emerald-700 text-white py-1 md:py-2 px-2 md:px-4 rounded-md md:rounded-lg transition-colors duration-200 disabled:bg-gray-300 text-xs md:text-base"
           disabled={!product.inStock}
         >
-          {product.inStock ? "Add to Cart" : "Notify Me"}
+          {product.inStock ? (
+            <Link to={`/products/${product._id}`}>"View Details" </Link>
+          ) : (
+            "Notify Me"
+          )}
         </button>
       </div>
     </div>
