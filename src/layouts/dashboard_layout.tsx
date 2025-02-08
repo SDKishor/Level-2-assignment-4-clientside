@@ -12,12 +12,14 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@radix-ui/react-separator";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 export const DashboardLayout = ({ isadmin }: { isadmin: boolean }) => {
+  const user = useSelector((state: RootState) => state.auth.user);
+
   return (
     <main className="w-full mt-16 relative">
       <NavMenu />
@@ -30,11 +32,9 @@ export const DashboardLayout = ({ isadmin }: { isadmin: boolean }) => {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="/user/dashboard">user</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Add Cars</BreadcrumbPage>
+                  <BreadcrumbLink href={`/${user!.role}/dashboard`}>
+                    {user!.role}
+                  </BreadcrumbLink>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

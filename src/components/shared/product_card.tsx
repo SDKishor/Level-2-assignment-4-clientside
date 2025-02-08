@@ -2,7 +2,7 @@ import { Star } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export interface ProductCardProps {
-  _id: string;
+  _id?: string;
   brand: string;
   model: string;
   year: number;

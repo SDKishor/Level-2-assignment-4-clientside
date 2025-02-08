@@ -1,20 +1,24 @@
+import { useGetCarByIdQuery } from "@/redux/features/car/car_api";
 import { ProductDetails } from "./product_details";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { toast } from "sonner";
 
 export function ProductPage() {
-  // const { productId } = useParams();
-  // const product = getProductById(productId); // Your data fetching logic
-  const product = {
-    _id: "67a1446286a2277c15962523",
-    brand: "tesla",
-    model: "model 3",
-    year: 2023,
-    price: 50000,
-    category: "Sedan",
-    image_url: "https://example.com/model3.jpg",
-    description: "A sleek and efficient electric car.",
-    quantity: 5,
-    inStock: true,
-  };
+  const { productId } = useParams();
+  // const [params] = useState<TQueryParam[] | undefined>(undefined);
+
+  const { data, error } = useGetCarByIdQuery(productId);
+
+  console.log(data);
+
+  useEffect(() => {
+    if (error) {
+      toast.error("Error fetching products");
+    }
+  }, [error]);
+
+  const product = data?.data;
 
   if (!product) return <div>Product not found</div>;
 

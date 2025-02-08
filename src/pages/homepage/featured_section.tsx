@@ -1,113 +1,21 @@
 import { ProductCard } from "@/components/shared/product_card";
+import { TQueryParam, useGetAllCarsQuery } from "@/redux/features/car/car_api";
+import { ICar } from "@/types";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 
 export function FeaturedProducts() {
-  const featuredProducts = [
-    {
-      _id: "67a1446286a2277c1596272b",
-      brand: "Ford",
-      model: "Mustang",
-      year: 2022,
-      price: 45000,
-      image_url:
-        "https://images.unsplash.com/photo-1588127333419-b9d7de223dcf?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      category: "Coupe",
-      description: "A powerful and iconic sports car.",
-      quantity: 5,
-      inStock: true,
-    },
-    {
-      _id: "67a1446286a2277c1596272b",
-      brand: "Ford",
-      model: "Mustang",
-      year: 2022,
-      price: 45000,
-      image_url:
-        "https://images.unsplash.com/photo-1588127333419-b9d7de223dcf?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      category: "Coupe",
-      description: "A powerful and iconic sports car.",
-      quantity: 5,
-      inStock: true,
-    },
-    {
-      _id: "67a1446286a2277c1596272b",
-      brand: "Ford",
-      model: "Mustang",
-      year: 2022,
-      price: 45000,
-      image_url:
-        "https://images.unsplash.com/photo-1588127333419-b9d7de223dcf?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      category: "Coupe",
-      description: "A powerful and iconic sports car.",
-      quantity: 5,
-      inStock: true,
-    },
-    {
-      _id: "67a1446286a2277c1596272b",
-      brand: "Ford",
-      model: "Mustang",
-      year: 2022,
-      price: 45000,
-      image_url:
-        "https://images.unsplash.com/photo-1588127333419-b9d7de223dcf?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      category: "Coupe",
-      description: "A powerful and iconic sports car.",
-      quantity: 5,
-      inStock: true,
-    },
-    {
-      _id: "67a1446286a2277c1596272b",
-      brand: "Ford",
-      model: "Mustang",
-      year: 2022,
-      price: 45000,
-      image_url:
-        "https://images.unsplash.com/photo-1588127333419-b9d7de223dcf?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      category: "Coupe",
-      description: "A powerful and iconic sports car.",
-      quantity: 5,
-      inStock: true,
-    },
-    {
-      _id: "67a1446286a2277c1596272b",
-      brand: "Ford",
-      model: "Mustang",
-      year: 2022,
-      price: 45000,
-      image_url:
-        "https://images.unsplash.com/photo-1588127333419-b9d7de223dcf?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      category: "Coupe",
-      description: "A powerful and iconic sports car.",
-      quantity: 5,
-      inStock: true,
-    },
-    {
-      _id: "67a1446286a2277c1596272b",
-      brand: "Ford",
-      model: "Mustang",
-      year: 2022,
-      price: 45000,
-      image_url:
-        "https://images.unsplash.com/photo-1588127333419-b9d7de223dcf?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      category: "Coupe",
-      description: "A powerful and iconic sports car.",
-      quantity: 5,
-      inStock: true,
-    },
-    {
-      _id: "67a1446286a2277c1596272b",
-      brand: "Ford",
-      model: "Mustang",
-      year: 2022,
-      price: 45000,
-      image_url:
-        "https://images.unsplash.com/photo-1588127333419-b9d7de223dcf?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-      category: "Coupe",
-      description: "A powerful and iconic sports car.",
-      quantity: 5,
-      inStock: true,
-    },
-  ];
+  const [params] = useState<TQueryParam[] | undefined>(undefined);
+
+  const { data, error } = useGetAllCarsQuery(params);
+
+  useEffect(() => {
+    if (error) {
+      toast.error("Error fetching products");
+    }
+  }, [error]);
+  const featuredProducts = data?.data || [];
 
   return (
     <section className="py-12 px-4 sm:px-6 lg:px-8">
@@ -126,7 +34,7 @@ export function FeaturedProducts() {
 
         {/* Products Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 place-items-center">
-          {featuredProducts.slice(0, 6).map((product) => (
+          {featuredProducts.slice(0, 6).map((product: ICar) => (
             <ProductCard key={product._id} {...product} />
           ))}
         </div>

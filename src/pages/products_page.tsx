@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -10,48 +10,22 @@ import {
 import { Slider } from "@/components/ui/slider";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ProductCard } from "@/components/shared/product_card";
-
-export interface Product {
-  _id: string;
-  brand: string;
-  model: string;
-  year: number;
-  price: number;
-  image_url: string;
-  category: string;
-  description: string;
-  quantity: number;
-  inStock: boolean;
-  isFeatured?: boolean;
-}
+import { ICar } from "@/types";
+import { TQueryParam, useGetAllCarsQuery } from "@/redux/features/car/car_api";
+import { toast } from "sonner";
 
 export function ProductsPage() {
-  const products: Product[] = [
-    {
-      _id: "67a1446286a2277c1596272b",
-      brand: "Ford",
-      model: "Mustang",
-      year: 2022,
-      price: 40000,
-      image_url: "https://example.com/mustang.jpg",
-      category: "Coupe",
-      description: "A powerful and iconic sports car.",
-      quantity: 10,
-      inStock: true,
-    },
-    {
-      _id: "67a1446286a2277c15962523",
-      brand: "tesla",
-      model: "model 3",
-      year: 2023,
-      price: 50000,
-      category: "Sedan",
-      image_url: "https://example.com/model3.jpg",
-      description: "A sleek and efficient electric car.",
-      quantity: 5,
-      inStock: true,
-    },
-  ];
+  const [params] = useState<TQueryParam[] | undefined>(undefined);
+
+  const { data, error } = useGetAllCarsQuery(params);
+
+  useEffect(() => {
+    if (error) {
+      toast.error("Error fetching products");
+    }
+  }, [error]);
+
+  const products: ICar[] = data?.data || [];
 
   // State management
   const [searchTerm, setSearchTerm] = useState("");

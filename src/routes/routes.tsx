@@ -3,6 +3,7 @@ import MainLayout from "@/layouts/main_layout";
 import { ProtectedRoute } from "@/layouts/protected_route";
 import { AboutPage } from "@/pages/about_page";
 import { AddCar } from "@/pages/admin_dashboard/add_car_page";
+import { ViewAllCarsPage } from "@/pages/admin_dashboard/view_all_cars";
 import { PurchaseSuccess } from "@/pages/congratulation_page";
 import HomePage from "@/pages/homepage/home_page";
 import { LoginPage } from "@/pages/login_page";
@@ -68,11 +69,15 @@ const router = createBrowserRouter([
       {
         index: true,
         path: "",
+        element: <div>Hi</div>,
+      },
+      {
+        path: "add_car",
         element: <AddCar />,
       },
       {
-        path: "addcar",
-        element: <div>block user</div>,
+        path: "all_cars",
+        element: <ViewAllCarsPage />,
       },
     ],
   },

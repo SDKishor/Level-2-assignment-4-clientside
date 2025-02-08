@@ -7,9 +7,9 @@ export function AboutPage() {
       {/* Hero Section */}
       <div className="relative h-96 bg-gray-900 flex items-center justify-center">
         <img
-          src="/about-hero.jpg"
+          src="https://images.unsplash.com/photo-1617531653322-161e1f772ed7?q=80&w=1006&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="Car Dealership"
-          className="absolute inset-0 w-full h-full object-cover opacity-50"
+          className="absolute inset-0 w-full h-full object-cover opacity-30"
         />
         <div className="relative z-10 text-center text-white px-4">
           <h1 className="text-4xl md:text-6xl font-bold mb-4">
@@ -72,7 +72,7 @@ export function AboutPage() {
         {/* History Section */}
         <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
           <img
-            src="/dealership-history.jpg"
+            src="https://images.unsplash.com/photo-1621808752171-531c30903889?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="Dealership History"
             className="rounded-lg shadow-xl"
           />

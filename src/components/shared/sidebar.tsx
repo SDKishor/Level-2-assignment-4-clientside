@@ -51,7 +51,7 @@ const adminSibaritems: SidebarItem[] = [
       },
       {
         title: "View All Cars",
-        url: "#",
+        url: "/admin/dashboard/all_cars",
       },
     ],
   },
