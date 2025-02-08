@@ -1,5 +1,6 @@
 import { DashboardLayout } from "@/layouts/dashboard_layout";
 import MainLayout from "@/layouts/main_layout";
+import { ProtectedRoute } from "@/layouts/protected_route";
 import HomePage from "@/pages/homepage/home_page";
 import { LoginPage } from "@/pages/login_page";
 import { RegisterForm } from "@/pages/register_page";
@@ -27,7 +28,11 @@ const router = createBrowserRouter([
   },
   {
     path: "user/dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <ProtectedRoute role="user">
+        <DashboardLayout isadmin={false} />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "admin",
@@ -37,7 +42,11 @@ const router = createBrowserRouter([
   },
   {
     path: "admin/dashboard",
-    element: <div>Dashboard</div>,
+    element: (
+      <ProtectedRoute role="admin">
+        <DashboardLayout isadmin={true} />
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "admin",

@@ -131,6 +131,7 @@ export function FeaturedProducts() {
               key={product._id}
               product={product}
               className="w-full"
+              isFeatured
             />
           ))}
         </div>

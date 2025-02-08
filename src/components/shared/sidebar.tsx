@@ -1,4 +1,4 @@
-import { BookOpen, Bot, SquareTerminal } from "lucide-react";
+import { Car, ClipboardCheck, User } from "lucide-react";
 
 import {
   Sidebar,
@@ -9,77 +9,86 @@ import {
 } from "@/components/ui/sidebar";
 import { NavMain, SidebarItem } from "./sidebar_items";
 
-const sibaritems: SidebarItem[] = [
+const userSibaritems: SidebarItem[] = [
   {
-    title: "Playground",
+    title: "Orders",
     url: "#",
-    icon: SquareTerminal,
-    isActive: true,
+    icon: ClipboardCheck,
     items: [
       {
-        title: "History",
-        url: "#",
-      },
-      {
-        title: "Starred",
-        url: "#",
-      },
-      {
-        title: "Settings",
+        title: "All Orders",
         url: "#",
       },
     ],
   },
   {
-    title: "Models",
+    title: "Profile",
     url: "#",
-    icon: Bot,
+    icon: User,
     items: [
       {
-        title: "Genesis",
+        title: "Update Profile",
         url: "#",
       },
       {
-        title: "Explorer",
-        url: "#",
-      },
-      {
-        title: "Quantum",
-        url: "#",
-      },
-    ],
-  },
-  {
-    title: "Documentation",
-    url: "#",
-    icon: BookOpen,
-    items: [
-      {
-        title: "Introduction",
-        url: "#",
-      },
-      {
-        title: "Get Started",
-        url: "#",
-      },
-      {
-        title: "Tutorials",
-        url: "#",
-      },
-      {
-        title: "Changelog",
+        title: "Change Password",
         url: "#",
       },
     ],
   },
 ];
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+const adminSibaritems: SidebarItem[] = [
+  {
+    title: "Cars",
+    url: "#",
+    icon: Car,
+    isActive: true,
+    items: [
+      {
+        title: "Add Cars",
+        url: "#",
+      },
+      {
+        title: "View All Cars",
+        url: "#",
+      },
+    ],
+  },
+  {
+    title: "Orders",
+    url: "#",
+    icon: ClipboardCheck,
+    items: [
+      {
+        title: "All Orders",
+        url: "#",
+      },
+    ],
+  },
+  {
+    title: "Users",
+    url: "#",
+    icon: User,
+    items: [
+      {
+        title: "All Users",
+        url: "#",
+      },
+      {
+        title: "Blocking User",
+        url: "#",
+      },
+    ],
+  },
+];
+
+export function AppSidebar({ isadmin }: { isadmin: boolean }) {
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar collapsible="icon">
       <SidebarHeader></SidebarHeader>
       <SidebarContent>
-        <NavMain items={sibaritems} />
+        <NavMain items={isadmin ? adminSibaritems : userSibaritems} />
       </SidebarContent>
       <SidebarFooter></SidebarFooter>
       <SidebarRail />
