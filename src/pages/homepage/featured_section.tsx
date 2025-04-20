@@ -6,7 +6,9 @@ import { Link } from "react-router-dom";
 import { toast } from "sonner";
 
 export function FeaturedProducts() {
-  const [params] = useState<TQueryParam[] | undefined>(undefined);
+  const [params] = useState<TQueryParam[] | undefined>([
+    { name: "isFeatured", value: true },
+  ]);
 
   const { data, error } = useGetAllCarsQuery(params);
 

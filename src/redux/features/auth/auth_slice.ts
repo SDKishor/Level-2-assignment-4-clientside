@@ -5,9 +5,10 @@ export interface IUser {
   email: string;
   exp?: number;
   iat?: number;
-  id: string;
+  _id?: string;
   name: string;
   role: string;
+  isBlocked?: boolean;
 }
 
 type TAuthState = {

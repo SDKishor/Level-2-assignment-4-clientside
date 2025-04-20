@@ -1,24 +1,26 @@
 import { useGetCarByIdQuery } from "@/redux/features/car/car_api";
-import { ProductDetails } from "./product_details";
+
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { toast } from "sonner";
+import { ProductOrderSection } from "./product_order_section";
 
-export function ProductPage() {
+export const ChackoutPage = () => {
   const { productId } = useParams();
   const { data, error } = useGetCarByIdQuery(productId);
-
-  console.log(data);
 
   useEffect(() => {
     if (error) {
       toast.error("Error fetching products");
     }
-  }, [error]);
-
+  });
   const product = data?.data;
 
   if (!product) return <div>Product not found</div>;
 
-  return <ProductDetails product={product} />;
-}
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <ProductOrderSection product={data?.data} />
+    </div>
+  );
+};

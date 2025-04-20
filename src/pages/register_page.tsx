@@ -78,7 +78,6 @@ export function RegisterForm() {
       const errorData = error as { data: { message: string } };
       toast.error(errorData.data.message, {
         id: toastID,
-        description: error.data.errorSources[0].message,
       });
     }
   }

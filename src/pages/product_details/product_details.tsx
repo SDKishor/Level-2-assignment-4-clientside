@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Star, ShieldCheck, Truck } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface ProductDetailsProps {
   product: {
@@ -20,8 +21,8 @@ interface ProductDetailsProps {
 
 export function ProductDetails({ product }: ProductDetailsProps) {
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div className="container mx-auto px-4 py-8 min-h-screen flex items-center justify-center">
+      <div className=" grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Image Section */}
         <div className="relative">
           {product.isFeatured && (
@@ -106,14 +107,28 @@ export function ProductDetails({ product }: ProductDetailsProps) {
           </div>
 
           {/* CTA Section */}
-          <div className="flex gap-4">
-            <Button
-              size="lg"
-              className="flex-1 bg-emerald-600 hover:bg-emerald-700"
-              disabled={!product.inStock}
-            >
-              {product.inStock ? "Buy Now" : "Notify When Available"}
-            </Button>
+          <div>
+            {product.inStock ? (
+              <Link className="flex gap-4" to={`/checkout/${product._id}`}>
+                <Button
+                  size="lg"
+                  className="flex-1 bg-emerald-600 hover:bg-emerald-700"
+                  disabled={!product.inStock}
+                >
+                  Buy Now
+                </Button>
+              </Link>
+            ) : (
+              <div className="flex gap-4">
+                <Button
+                  size="lg"
+                  className="flex-1 bg-emerald-600 hover:bg-emerald-700 "
+                  disabled={true}
+                >
+                  Not Available
+                </Button>
+              </div>
+            )}
           </div>
 
           {/* Assurance Badges */}

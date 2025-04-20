@@ -17,25 +17,25 @@ const userSibaritems: SidebarItem[] = [
     items: [
       {
         title: "All Orders",
-        url: "#",
+        url: "/user/dashboard/all_orders",
       },
     ],
   },
-  {
-    title: "Profile",
-    url: "#",
-    icon: User,
-    items: [
-      {
-        title: "Update Profile",
-        url: "#",
-      },
-      {
-        title: "Change Password",
-        url: "#",
-      },
-    ],
-  },
+  // {
+  //   title: "Profile",
+  //   url: "#",
+  //   icon: User,
+  //   items: [
+  //     {
+  //       title: "Update Profile",
+  //       url: "#",
+  //     },
+  //     {
+  //       title: "Change Password",
+  //       url: "#",
+  //     },
+  //   ],
+  // },
 ];
 
 const adminSibaritems: SidebarItem[] = [
@@ -62,7 +62,7 @@ const adminSibaritems: SidebarItem[] = [
     items: [
       {
         title: "All Orders",
-        url: "#",
+        url: "/admin/dashboard/all_orders",
       },
     ],
   },
@@ -73,11 +73,7 @@ const adminSibaritems: SidebarItem[] = [
     items: [
       {
         title: "All Users",
-        url: "#",
-      },
-      {
-        title: "Blocking User",
-        url: "#",
+        url: "/admin/dashboard/all_users",
       },
     ],
   },

@@ -34,6 +34,7 @@ const carFormSchema = z.object({
   quantity: z.number().min(0),
   inStock: z.boolean(),
   image_url: z.string().url("Please enter a valid URL"),
+  isFeatured: z.boolean(),
 });
 
 export type CarFormValues = z.infer<typeof carFormSchema>;
@@ -42,6 +43,7 @@ export function AddCarForm({
   onSubmit,
 }: {
   onSubmit: (values: CarFormValues) => void;
+  defaultValues?: CarFormValues;
 }) {
   const form = useForm<CarFormValues>({
     resolver: zodResolver(carFormSchema),
@@ -55,6 +57,7 @@ export function AddCarForm({
       quantity: 0,
       inStock: true,
       image_url: "",
+      isFeatured: false,
     },
   });
 
@@ -212,6 +215,24 @@ export function AddCarForm({
                 </FormControl>
                 <div className="space-y-1 leading-none">
                   <FormLabel>In Stock</FormLabel>
+                </div>
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="isFeatured"
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-start space-x-3 space-y-0 p-4">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <div className="space-y-1 leading-none">
+                  <FormLabel>Featured product</FormLabel>
                 </div>
               </FormItem>
             )}
